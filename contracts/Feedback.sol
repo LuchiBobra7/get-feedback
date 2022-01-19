@@ -6,17 +6,36 @@ import "hardhat/console.sol";
 contract Feedback {
     uint256 totalFeedbacks;
 
-    constructor() {
-        console.log("Yo yo, I am a contract and I am smart");
+    event NewFeedback(
+        address indexed from,
+        uint8 rating,
+        uint256 timestamp,
+        string message
+    );
+
+    struct FeedbackInfo {
+        address feedbackAddress;
+        uint8 rating;
+        string message;
+        uint256 timestamp;
     }
 
-    function sendFeedback() public {
-        totalFeedbacks += 1;
-        console.log("%s sent feedback!", msg.sender);
+    FeedbackInfo[] feedbackList;
+
+    function sendFeedback(string memory _message, uint8 _rating) public {
+        totalFeedbacks++;
+        feedbackList.push(
+            FeedbackInfo(msg.sender, _rating, _message, block.timestamp)
+        );
+
+        emit NewFeedback(msg.sender, _rating, block.timestamp, _message);
+    }
+
+    function getFeedbackList() public view returns (FeedbackInfo[] memory) {
+        return feedbackList;
     }
 
     function getTotalFeedbacks() public view returns (uint256) {
-        console.log("We have %d total feedbacks!", totalFeedbacks);
         return totalFeedbacks;
     }
 }
