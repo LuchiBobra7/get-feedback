@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  Button,
+  Drawer,
+  VStack,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
+import Layout from "./components/Layout";
+import FeedbackForm from "./components/FeedbackForm";
+import FeedbackList from "./components/FeedbackList";
 
-function App() {
+const App = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Layout>
+      <FeedbackForm />
+      <Button
+        ref={btnRef}
+        size="sm"
+        my={4}
+        variant="unstyled"
+        color="brand.pink.500"
+        fontWeight="500"
+        textDecoration="underline"
+        onClick={onOpen}
+      >
+        View Feedbacks
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+        size="sm"
+      >
+        <DrawerOverlay
+          bg="whiteAlpha.100"
+          backdropFilter="saturate(180%) blur(7px)"
+        />
+        <DrawerContent
+          bg="brand.gray.100"
+          backdropFilter="saturate(180%) blur(5px)"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <DrawerCloseButton color="brand.gray.400" />
+          <DrawerHeader fontWeight="500">All Feedbacks</DrawerHeader>
+          <DrawerBody as={VStack} spacing={4}>
+            <FeedbackList />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </Layout>
   );
-}
+};
 
 export default App;
