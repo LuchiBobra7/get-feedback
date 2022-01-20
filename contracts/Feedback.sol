@@ -8,16 +8,16 @@ contract Feedback {
 
     event NewFeedback(
         address indexed from,
-        uint8 rating,
         uint256 timestamp,
-        string message
+        string message,
+        uint8 rating
     );
 
     struct FeedbackInfo {
         address feedbackAddress;
-        uint8 rating;
-        string message;
         uint256 timestamp;
+        string message;
+        uint8 rating;
     }
 
     FeedbackInfo[] feedbackList;
@@ -25,10 +25,10 @@ contract Feedback {
     function sendFeedback(string memory _message, uint8 _rating) public {
         totalFeedbacks++;
         feedbackList.push(
-            FeedbackInfo(msg.sender, _rating, _message, block.timestamp)
+            FeedbackInfo(msg.sender, block.timestamp, _message, _rating)
         );
 
-        emit NewFeedback(msg.sender, _rating, block.timestamp, _message);
+        emit NewFeedback(msg.sender, block.timestamp, _message, _rating);
     }
 
     function getFeedbackList() public view returns (FeedbackInfo[] memory) {

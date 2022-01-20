@@ -17,8 +17,16 @@ const colors = {
       50: "#F2F6FF",
     },
     pink: {
-      500: "#FF71A4",
-      600: "#D22E69",
+      50: "#fff8fa",
+      100: "#fff1f6",
+      200: "#ffdce8",
+      300: "#ffc6db",
+      400: "#ff9cbf",
+      500: "#ff71a4",
+      600: "#e66694",
+      700: "#bf557b",
+      800: "#994462",
+      900: "#7d3750",
     },
   },
 };
@@ -85,10 +93,13 @@ const theme = extendTheme({
           bgColor: "brand.pink.500",
           color: "white",
           _hover: {
-            bgColor: "pink.400",
+            bgColor: "brand.pink.400",
+          },
+          "&:hover[disabled]": {
+            bgColor: "brand.pink.500",
           },
           _focus: {
-            bgColor: "pink.500",
+            bgColor: "brand.pink.500",
           },
         },
       },

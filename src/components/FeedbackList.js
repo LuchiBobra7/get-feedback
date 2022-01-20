@@ -2,10 +2,10 @@ import React from "react";
 import { VStack, Text } from "@chakra-ui/react";
 import Rating from "./Rating";
 
-const FeedbackList = ({ items = [...new Array(12)] }) => {
+const FeedbackList = ({ items }) => {
   return (
     <>
-      {items.map((_, i) => (
+      {items.map((item, i) => (
         <VStack
           key={i}
           bg="white"
@@ -15,11 +15,11 @@ const FeedbackList = ({ items = [...new Array(12)] }) => {
           py={4}
           boxShadow="sm"
           borderRadius="md"
+          w="full"
         >
-          <Rating value={4} />
+          <Rating value={item.rating} />
           <Text fontSize="sm" color="brand.gray.500">
-            Because JavaScript checker and faster JavaScript has an object that
-            gets called immediately after declaration
+            {item.message}
           </Text>
         </VStack>
       ))}
