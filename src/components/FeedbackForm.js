@@ -39,7 +39,15 @@ const ratingItems = [
   },
 ];
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ sendFeedback, feedback, setFeedback }) => {
+  const handleChange = (e) => {
+    setFeedback({
+      ...feedback,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const isSubmitButtonEnable = !!feedback?.message?.length;
   return (
     <VStack
       spacing={7}
@@ -87,6 +95,10 @@ const FeedbackForm = () => {
             cursor="pointer"
             transition="all 0.2s"
             fontSize="sm"
+            boxShadow={feedback?.rating === i + 1 ? "pink" : "none"}
+            onClick={(e) => {
+              setFeedback({ ...feedback, rating: i + 1 });
+            }}
             _hover={{
               color: "brand.gray.800",
               borderColor: "brand.gray.50",
@@ -102,9 +114,23 @@ const FeedbackForm = () => {
         <FormLabel htmlFor="email">
           What are the main reasons for your rating?
         </FormLabel>
-        <Textarea bg="white" borderWidth="2px" borderColor="brand.gray.400" />
+        <Textarea
+          bg="white"
+          borderWidth="2px"
+          borderColor="brand.gray.400"
+          name="message"
+          value={feedback?.message || ""}
+          onChange={handleChange}
+        />
       </FormControl>
-      <Button variant="brand" size="lg" alignSelf="flex-end" fontWeight="500">
+      <Button
+        onClick={() => sendFeedback()}
+        variant="brand"
+        size="lg"
+        alignSelf="flex-end"
+        fontWeight="500"
+        disabled={!isSubmitButtonEnable}
+      >
         Submit
       </Button>
     </VStack>
