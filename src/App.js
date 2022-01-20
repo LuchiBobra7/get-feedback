@@ -17,7 +17,7 @@ import FeedbackList from "./components/FeedbackList";
 import Feedback from "./artifacts/contracts/Feedback.sol/Feedback.json";
 
 const App = () => {
-  const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+  const contractAddress = "0x2d896aF85f9feF087c9C2A7E29cfADA7521452FC";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
